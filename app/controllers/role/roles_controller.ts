@@ -16,7 +16,6 @@ export default class RolesController {
 
   async getAllRoles({ response }: HttpContext) {
     const roles = await Role.all()
-    // return response.ok(roles)
     return response.status(200).json({
       message: 'Roles fetched successfully',
       data: roles,
@@ -27,7 +26,6 @@ export default class RolesController {
   async updateRole({ request, response, params }: HttpContext) {
     const { id } = params
     const { libelle, description, status } = request.body()
-
     try {
       const role = await Role.findOrFail(id)
       role.merge({ libelle, description, status })
@@ -49,7 +47,6 @@ export default class RolesController {
 
   async deleteRole({ params, response }: HttpContext) {
     const { id } = params
-
     try {
       const role = await Role.findOrFail(id)
       await role.delete()
