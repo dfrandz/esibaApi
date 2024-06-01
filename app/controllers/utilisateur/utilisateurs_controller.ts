@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '../../models/user.js'
 import { loginValidator, userValidator } from '../../validators/utililsateur.js'
-
+import hash from '@adonisjs/core/services/hash'
 export default class UtilisateursController {
   async getAllUsers({ response }: HttpContext) {
     const users = await User.query().preload('role')
@@ -89,25 +89,28 @@ export default class UtilisateursController {
   async login({ request, response }: HttpContext) {
     const payload = await loginValidator.validate(request.body())
     try {
-      await User.query().where('email', payload.email)
+      const user = await User.query().where('email', payload.email).first()
       try {
-        const user = await User.verifyCredentials(payload.email, payload.password)
-        const token = await User.accessTokens.create(
-          user,
-          ['*'], // with all abilities
-          {
-            expiresIn: '24hours', // expires in 30 days
+        if (user) {
+          await hash.verify(user.password, payload.password)
+          console.log('user', user)
+          const token = await User.accessTokens.create(
+            user,
+            ['*'], // with all abilities
+            {
+              expiresIn: '24hours', // expires in 30 days
+            }
+          )
+          if (token) {
+            console.log('user: ', user)
+            return response.status(200).json({
+              access_token: token,
+              user: user,
+              success: true,
+              message: 'utilisateur connecté avec succes!',
+              errors: null,
+            })
           }
-        )
-        if (token) {
-          console.log('user: ', user)
-          return response.status(200).json({
-            access_token: token,
-            user: user,
-            success: true,
-            message: 'utilisateur connecté avec succes!',
-            errors: null,
-          })
         }
       } catch (error) {
         return response.status(error.status).json({

@@ -9,7 +9,7 @@ export default class RolesController {
     const role = await Role.create(payload)
     return response.status(201).json({
       message: 'Role created successfully',
-      data: role,
+      result: role,
       status: 'success',
     })
   }
@@ -18,8 +18,9 @@ export default class RolesController {
     const roles = await Role.all()
     return response.status(200).json({
       message: 'Roles fetched successfully',
-      data: roles,
-      status: 'success',
+      result: roles,
+      success: true,
+      status: 200,
     })
   }
 
@@ -33,7 +34,7 @@ export default class RolesController {
 
       return response.status(200).json({
         message: 'Role updated successfully',
-        data: role,
+        result: role,
         status: 'success',
       })
     } catch (error) {
@@ -50,10 +51,11 @@ export default class RolesController {
     try {
       const role = await Role.findOrFail(id)
       await role.delete()
-
       return response.status(200).json({
         message: 'Role deleted successfully',
-        status: 'success',
+        success: true,
+        status: 200,
+        result: role,
       })
     } catch (error) {
       return response.status(404).json({

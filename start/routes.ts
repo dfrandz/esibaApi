@@ -26,9 +26,35 @@ router
   )
 
 router.post('/roleStore', [RolesController, 'storeRole']).prefix('/api')
-router.get('/roles', [RolesController, 'getAllRoles']).prefix('/api')
-router.put('/roleUpdate/:id', [RolesController, 'updateRole']).prefix('/api')
-router.delete('/roleDelete/:id', [RolesController, 'deleteRole']).prefix('/api')
+// .use(
+//   middleware.auth({
+//     guards: ['api'],
+//   })
+// )
+router
+  .get('/roles', [RolesController, 'getAllRoles'])
+  .prefix('/api')
+  .use(
+    middleware.auth({
+      guards: ['api'],
+    })
+  )
+router
+  .put('/roleUpdate/:id', [RolesController, 'updateRole'])
+  .prefix('/api')
+  .use(
+    middleware.auth({
+      guards: ['api'],
+    })
+  )
+router
+  .delete('/roleDelete/:id', [RolesController, 'deleteRole'])
+  .prefix('/api')
+  .use(
+    middleware.auth({
+      guards: ['api'],
+    })
+  )
 
 router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')

@@ -6,7 +6,7 @@ import vine from '@vinejs/vine'
 export const createRoleValidator = vine.compile(
   vine.object({
     libelle: vine.string().trim().minLength(3).maxLength(32),
-    status: vine.boolean(),
+    // status: vine.boolean(),
     description: vine.string().trim().escape(),
   })
 )
