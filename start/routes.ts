@@ -47,14 +47,12 @@ router
       guards: ['api'],
     })
   )
-router
-  .delete('/roleDelete/:id', [RolesController, 'deleteRole'])
-  .prefix('/api')
-  .use(
-    middleware.auth({
-      guards: ['api'],
-    })
-  )
+router.delete('/roleDelete/:id', [RolesController, 'deleteRole']).prefix('/api')
+// .use(
+//   middleware.auth({
+//     guards: ['api'],
+//   })
+// )
 
 router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')
