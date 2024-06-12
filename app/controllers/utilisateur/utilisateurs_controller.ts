@@ -1,7 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '../../models/user.js'
 import { loginValidator, userValidator } from '../../validators/utililsateur.js'
-import hash from '@adonisjs/core/services/hash'
 export default class UtilisateursController {
 
   async getAllUsers({ response }: HttpContext) {
