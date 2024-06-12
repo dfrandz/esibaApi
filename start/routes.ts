@@ -12,6 +12,7 @@ import router from '@adonisjs/core/services/router'
 import RolesController from '../app/controllers/role/roles_controller.js'
 import UtilisateursController from '../app/controllers/utilisateur/utilisateurs_controller.js'
 import { middleware } from './kernel.js'
+import FilieresController from '#controllers/filieres_controller'
 
 router
   .get('/', async () => {
@@ -26,11 +27,11 @@ router
   )
 
 router.post('/roleStore', [RolesController, 'storeRole']).prefix('/api')
-// .use(
-//   middleware.auth({
-//     guards: ['api'],
-//   })
-// )
+.use(
+  middleware.auth({
+    guards: ['api'],
+  })
+)
 router
   .get('/roles', [RolesController, 'getAllRoles'])
   .prefix('/api')
@@ -53,6 +54,9 @@ router.delete('/roleDelete/:id', [RolesController, 'deleteRole']).prefix('/api')
 //     guards: ['api'],
 //   })
 // )
+
+router.post('filiere', [FilieresController, 'store']).prefix('/api')
+router.get('filiere', [FilieresController, 'getAll']).prefix('/api')
 
 router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')

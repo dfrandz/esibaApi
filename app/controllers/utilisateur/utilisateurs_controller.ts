@@ -3,6 +3,7 @@ import User from '../../models/user.js'
 import { loginValidator, userValidator } from '../../validators/utililsateur.js'
 import hash from '@adonisjs/core/services/hash'
 export default class UtilisateursController {
+
   async getAllUsers({ response }: HttpContext) {
     const users = await User.query().preload('role')
     return response.status(200).json({
