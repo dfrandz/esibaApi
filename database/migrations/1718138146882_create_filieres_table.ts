@@ -9,9 +9,9 @@ export default class extends BaseSchema {
       table.string('libelle').notNullable();
       table.string('description').nullable();
       table.boolean('status').defaultTo(true)
-      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
     })
   }
 

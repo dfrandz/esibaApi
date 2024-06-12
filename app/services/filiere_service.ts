@@ -7,7 +7,11 @@ export default class FiliereService {
         return filiere
     }
 
-    getAll = ()=>{
+    getAll=()=>{
         return Filiere.query().preload('User')
+    }
+
+    delete = (data:Filiere)=>{
+        data.delete()
     }
 }

@@ -17,7 +17,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   currentAccessToken?: AccessToken
 
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
 
   @column()
   declare nom: string
@@ -66,10 +66,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
     tokenSecretLength: 40,
   })
 
-  @beforeSave()
-  static async hashPassword(user: User) {
-    if (user.$dirty.password) {
-      user.password = await hash.make(user.password)
-    }
-  }
+  // @beforeSave()
+  // static async hashPassword(user: User) {
+  //   if (user.$dirty.password) {
+  //     user.password = await hash.make(user.password)
+  //   }
+  // }
 }

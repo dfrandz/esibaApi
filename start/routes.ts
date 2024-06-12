@@ -27,11 +27,11 @@ router
   )
 
 router.post('/roleStore', [RolesController, 'storeRole']).prefix('/api')
-.use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
+// .use(
+//   middleware.auth({
+//     guards: ['api'],
+//   })
+// )
 router
   .get('/roles', [RolesController, 'getAllRoles'])
   .prefix('/api')
@@ -57,6 +57,7 @@ router.delete('/roleDelete/:id', [RolesController, 'deleteRole']).prefix('/api')
 
 router.post('filiere', [FilieresController, 'store']).prefix('/api')
 router.get('filiere', [FilieresController, 'getAll']).prefix('/api')
+router.delete('/filiere/:id', [FilieresController, 'delete']).prefix('/api')
 
 router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')

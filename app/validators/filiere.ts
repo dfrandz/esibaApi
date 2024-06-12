@@ -10,7 +10,7 @@ export const filiereValidator = vine.compile(
         return !filiere
       }),
     description: vine.string().trim().escape().nullable(),
-    status: vine.boolean(),
+    // status: vine.boolean(),
     user_id: vine.number().exists(async (db, value) => {
         const user = await db.from('users').where('id', value).first()
         return !!user

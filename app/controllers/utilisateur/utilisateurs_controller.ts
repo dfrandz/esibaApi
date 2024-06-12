@@ -90,42 +90,28 @@ export default class UtilisateursController {
   async login({ request, response }: HttpContext) {
     const payload = await loginValidator.validate(request.body())
     try {
-      const user = await User.query().where('email', payload.email).first()
-      try {
-        if (user) {
-          await hash.verify(user.password, payload.password)
-          console.log('user', user)
-          const token = await User.accessTokens.create(
-            user,
-            ['*'], // with all abilities
-            {
-              expiresIn: '24hours', // expires in 30 days
-            }
-          )
-          if (token) {
-            console.log('user: ', user)
-            return response.status(200).json({
-              access_token: token,
-              user: user,
-              success: true,
-              message: 'utilisateur connecté avec succes!',
-              errors: null,
-            })
-          }
+      const user = await User.verifyCredentials(payload.email, payload.password)
+      const token = await User.accessTokens.create(
+        user,
+        ['*'], // with all abilities
+        {
+          expiresIn: '24hours', // expires in 30 days
         }
-      } catch (error) {
-        return response.status(error.status).json({
-          result: null,
+      )
+      if (token) {
+        return response.status(200).json({
+          access_token: token,
+          user: user,
           success: true,
-          message: 'email ou password incorrect!',
-          errors: error,
+          message: 'utilisateur connecté avec succes!',
+          errors: null,
         })
       }
     } catch (error) {
-      return response.status(503).json({
+      return response.status(error.status).json({
         result: null,
-        success: false,
-        message: 'erreur de connexion a la base de donnée',
+        success: true,
+        message: 'email ou password incorrect!',
         errors: error,
       })
     }

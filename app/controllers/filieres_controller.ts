@@ -3,6 +3,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import FiliereService from "#services/filiere_service";
 import { inject } from "@adonisjs/core";
 import { filiereValidator } from '#validators/filiere';
+import Filiere from '#models/filiere';
 
 @inject()
 export default class FilieresController {
@@ -27,7 +28,7 @@ export default class FilieresController {
         }
     }
 
-    async getAll({ response }: HttpContext){
+    async getAll({ response }: HttpContext) {
         try {
             const filieres = await this.filiereService.getAll()
             return response.status(200).json({
@@ -36,7 +37,27 @@ export default class FilieresController {
                 status: 'success',
             })
         } catch (error) {
-            
+
+        }
+    }
+
+    async delete({ params, response }: HttpContext) {
+        const { id } = params
+        try {
+            const filiere = await Filiere.findOrFail(id)
+            await this.filiereService.delete(filiere)
+            return response.status(200).json({
+                message: 'filiere deleted successfully',
+                success: true,
+                status: 200,
+                result: filiere,
+            })
+        } catch (error) {
+            return response.status(404).json({
+                message: 'Filiere not found',
+                error: error.message,
+                status: 'failed',
+            })
         }
     }
 }
