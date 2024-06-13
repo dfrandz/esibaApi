@@ -118,7 +118,6 @@ export default class UtilisateursController {
 
   async logout({ auth, response }: HttpContext) {
     const user = await auth.authenticate()
-    console.log('logout')
     if (user) {
       await User.accessTokens.delete(user, user.currentAccessToken.identifier)
     }
