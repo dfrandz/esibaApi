@@ -17,3 +17,19 @@ export const filiereValidator = vine.compile(
       }),
   })
 )
+
+
+export const NiveauFiliereValidator = vine.compile(
+  vine.object({
+    libelle: vine.string().trim().minLength(3).maxLength(32).unique(async (db, value) => {
+        const filiere = await db.from('filieres').where('libelle', value).first()
+        return !filiere
+      }),
+    description: vine.string().trim().escape(),
+    // status: vine.boolean(),
+    filiere_id: vine.number().exists(async (db, value) => {
+        const filiere = await db.from('filieres').where('id', value).first()
+        return !!filiere
+    }),
+  })
+)

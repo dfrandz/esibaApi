@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import User from './user.js'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import NiveauFiliere from './niveau_filiere.js'
 
 export default class Filiere extends BaseModel {
   @column({ isPrimary: true })
@@ -27,4 +28,7 @@ export default class Filiere extends BaseModel {
 
   @belongsTo(() => User, {foreignKey: 'user_id'})
   declare User: BelongsTo<typeof User>
+
+  @hasMany(() => NiveauFiliere, { foreignKey: 'filiere_id' })
+  declare NiveauFiliere: HasMany<typeof NiveauFiliere>
 }

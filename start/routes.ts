@@ -13,6 +13,7 @@ import RolesController from '../app/controllers/role/roles_controller.js'
 import UtilisateursController from '../app/controllers/utilisateur/utilisateurs_controller.js'
 import { middleware } from './kernel.js'
 import FilieresController from '#controllers/filieres_controller'
+import NiveauFilieresController from '#controllers/niveau_filieres_controller'
 
 router
   .get('/', async () => {
@@ -58,6 +59,10 @@ router.delete('/roleDelete/:id', [RolesController, 'deleteRole']).prefix('/api')
 router.post('filiere', [FilieresController, 'store']).prefix('/api')
 router.get('filiere', [FilieresController, 'getAll']).prefix('/api')
 router.delete('/filiere/:id', [FilieresController, 'delete']).prefix('/api')
+
+router.get('niveau-filiere', [NiveauFilieresController, 'getAll']).prefix('/api')
+router.post('niveau-filiere', [NiveauFilieresController, 'store']).prefix('/api')
+
 
 router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')
