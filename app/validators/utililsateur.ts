@@ -16,7 +16,7 @@ export const userValidator = vine.compile(
       }),
     password: vine.string().trim().minLength(3).maxLength(32),
     status: vine.boolean(),
-    role_id: vine.number().exists(async (db, value) => {
+    role_id: vine.string().exists(async (db, value) => {
       const role = await db.from('roles').where('id', value).first()
       return !!role
     }),

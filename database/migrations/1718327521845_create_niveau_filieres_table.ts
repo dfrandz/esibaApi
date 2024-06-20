@@ -5,13 +5,14 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      // table.increments('id')
+      table.uuid('id').unique().defaultTo(this.db.rawQuery('(UUID())').knexQuery)
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('libelle').notNullable();
       table.string('description').nullable();
       table.boolean('status').defaultTo(true)
-      table.integer('filiere_id').unsigned().references('filieres.id').onDelete('CASCADE')
+      table.uuid('filiere_id').references('filieres.id').onDelete('CASCADE')
     })
   }
 

@@ -5,7 +5,8 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').notNullable()
+      // table.increments('id').notNullable()
+      table.uuid('id').unique().defaultTo(this.db.rawQuery('(UUID())').knexQuery)
       table.string('nom').nullable()
       table.string('prenom').nullable()
       table.string('email', 254).notNullable().unique()
@@ -14,7 +15,7 @@ export default class extends BaseSchema {
       table.string('domaine').nullable()
       table.string('photo_profile').nullable()
       table.boolean('status').notNullable()
-      table.integer('role_id').unsigned().references('roles.id').onDelete('CASCADE')
+      table.uuid('role_id').references('roles.id').onDelete('CASCADE')
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
     })

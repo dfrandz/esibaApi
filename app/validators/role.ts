@@ -11,6 +11,13 @@ export const createRoleValidator = vine.compile(
   })
 )
 
+export const createMatiereValidator = vine.compile(
+  vine.object({
+    libelle: vine.string().trim().minLength(3).maxLength(32),
+    // status: vine.boolean(),
+    description: vine.string().trim().escape(),
+  })
+)
 // const messages = {
 //   'role.libelle.required': 'Le libelle est requis.',
 //   'role.status.required': 'Le status est requis.',

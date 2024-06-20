@@ -14,6 +14,7 @@ import UtilisateursController from '../app/controllers/utilisateur/utilisateurs_
 import { middleware } from './kernel.js'
 import FilieresController from '#controllers/filieres_controller'
 import NiveauFilieresController from '#controllers/niveau_filieres_controller'
+import MatieresController from '#controllers/matieres_controller'
 
 router
   .get('/', async () => {
@@ -36,11 +37,11 @@ router.post('/roleStore', [RolesController, 'storeRole']).prefix('/api')
 router
   .get('/roles', [RolesController, 'getAllRoles'])
   .prefix('/api')
-  .use(
-    middleware.auth({
-      guards: ['api'],
-    })
-  )
+  // .use(
+  //   middleware.auth({
+  //     guards: ['api'],
+  //   })
+  // )
 router
   .put('/roleUpdate/:id', [RolesController, 'updateRole'])
   .prefix('/api')
@@ -63,6 +64,8 @@ router.delete('/filiere/:id', [FilieresController, 'delete']).prefix('/api')
 router.get('niveau-filiere', [NiveauFilieresController, 'getAll']).prefix('/api')
 router.post('niveau-filiere', [NiveauFilieresController, 'store']).prefix('/api')
 
+router.post('matiere', [MatieresController, 'store']).prefix('/api')
+router.get('matieres', [MatieresController, 'getAll']).prefix('/api')
 
 router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')
