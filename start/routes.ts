@@ -9,12 +9,13 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import RolesController from '../app/controllers/role/roles_controller.js'
-import UtilisateursController from '../app/controllers/utilisateur/utilisateurs_controller.js'
 import { middleware } from './kernel.js'
-import FilieresController from '#controllers/filieres_controller'
-import NiveauFilieresController from '#controllers/niveau_filieres_controller'
-import MatieresController from '#controllers/matieres_controller'
+import RolesController from '../app/controllers/paramettre/roles_controller.js'
+import UtilisateursController from '../app/controllers/paramettre/utilisateurs_controller.js'
+import FilieresController from '#controllers/paramettre/filieres_controller'
+import NiveauFilieresController from '#controllers/paramettre/niveau_filieres_controller'
+import MatieresController from '#controllers/paramettre/matieres_controller'
+import AuthController from '#controllers/auth/auth_controller'
 
 router
   .get('/', async () => {
@@ -67,11 +68,11 @@ router.post('niveau-filiere', [NiveauFilieresController, 'store']).prefix('/api'
 router.post('matiere', [MatieresController, 'store']).prefix('/api')
 router.get('matieres', [MatieresController, 'getAll']).prefix('/api')
 
-router.post('/userStore', [UtilisateursController, 'create']).prefix('/api')
+router.post('/userStore', [AuthController, 'register']).prefix('/api')
 router.get('/users', [UtilisateursController, 'getAllUsers']).prefix('/api')
 router.put('/userUpdate/:id', [UtilisateursController, 'update']).prefix('/api')
 router.delete('/userDelete/:id', [UtilisateursController, 'delete']).prefix('/api')
 router.get('/user/:id', [UtilisateursController, 'getOne']).prefix('/api')
 
-router.post('/auth/login', [UtilisateursController, 'login']).prefix('/api')
-router.get('/auth/logout', [UtilisateursController, 'logout']).prefix('/api')
+router.post('/auth/login', [AuthController, 'login']).prefix('/api')
+router.get('/auth/logout', [AuthController, 'logout']).prefix('/api')

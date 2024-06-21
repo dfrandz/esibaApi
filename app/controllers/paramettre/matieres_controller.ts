@@ -1,4 +1,4 @@
-import ParametreService from '#services/paramettre-service'
+import ParametreService from '#services/paramettre/paramettre-service'
 import { createMatiereValidator } from '#validators/role'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'

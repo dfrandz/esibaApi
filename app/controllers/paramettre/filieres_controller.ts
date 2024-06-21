@@ -1,6 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 
-import FiliereService from "#services/filiere_service";
+import FiliereService from "#services/paramettre/filiere_service";
 import { inject } from "@adonisjs/core";
 import { filiereValidator } from '#validators/filiere';
 import Filiere from '#models/filiere';
