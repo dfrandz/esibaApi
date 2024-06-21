@@ -6,7 +6,7 @@ import NiveauFiliere from './niveau_filiere.js'
 
 export default class Filiere extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
 
   @column()
   declare libelle: string
@@ -24,7 +24,7 @@ export default class Filiere extends BaseModel {
   declare updatedAt: DateTime
 
   @column()
-  declare user_id: number
+  declare user_id: string
 
   @belongsTo(() => User, {foreignKey: 'user_id'})
   declare User: BelongsTo<typeof User>

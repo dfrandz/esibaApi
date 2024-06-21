@@ -5,7 +5,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class NiveauFiliere extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -23,7 +23,7 @@ export default class NiveauFiliere extends BaseModel {
   declare status: boolean
 
   @column()
-  declare filiere_id: number
+  declare filiere_id: string
 
   @belongsTo(() => Filiere, {foreignKey: 'filiere_id'})
   declare Filiere: BelongsTo<typeof Filiere>

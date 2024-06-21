@@ -11,7 +11,7 @@ export const filiereValidator = vine.compile(
       }),
     description: vine.string().trim().escape().nullable(),
     // status: vine.boolean(),
-    user_id: vine.number().exists(async (db, value) => {
+    user_id: vine.string().exists(async (db, value) => {
         const user = await db.from('users').where('id', value).first()
         return !!user
       }),
@@ -27,7 +27,7 @@ export const NiveauFiliereValidator = vine.compile(
       }),
     description: vine.string().trim().escape(),
     // status: vine.boolean(),
-    filiere_id: vine.number().exists(async (db, value) => {
+    filiere_id: vine.string().exists(async (db, value) => {
         const filiere = await db.from('filieres').where('id', value).first()
         return !!filiere
     }),
